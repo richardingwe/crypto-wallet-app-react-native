@@ -31,7 +31,7 @@ const Tabs = () => {
                         <TabIcon
                             focused={focused}
                             icon={icons.home}
-                            lable='Home'
+                            label='Home'
                         />
                     )
                 }}
@@ -44,7 +44,7 @@ const Tabs = () => {
                         <TabIcon
                             focused={focused}
                             icon={icons.briefcase}
-                            lable='Portfolio'
+                            label='Portfolio'
                         />
                     )
                 }}
@@ -57,7 +57,7 @@ const Tabs = () => {
                         <TabIcon
                             focused={focused}
                             icon={icons.trade}
-                            lable='Trade'
+                            label='Trade'
                             isTrade
                         />
                     )
@@ -71,7 +71,7 @@ const Tabs = () => {
                         <TabIcon
                             focused={focused}
                             icon={icons.market}
-                            lable='Market'
+                            label='Market'
                         />
                     )
                 }}
@@ -84,7 +84,7 @@ const Tabs = () => {
                         <TabIcon
                             focused={focused}
                             icon={icons.profile}
-                            lable='Profile'
+                            label='Profile'
                         />
                     )
                 }}
