@@ -46,7 +46,8 @@ export function getHoldings(holdings = [],
             }
         }).then((response) => {
             if (response.status == 200) {
-
+                console.log('get holdings');
+                console.log(response);
                 // Massage data
                 let myHoldings = response.data.map((item) => {
 
@@ -124,6 +125,8 @@ export function getCoinMarket(currency = 'usd',
                 Accept: 'application/json'
             }
         }).then(response => {
+            console.log('get coin market');
+            console.log(response);
             if (response.status == 200) {
                 dispatch(getCoinMarketSuccess(response.data));
             } else {
