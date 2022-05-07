@@ -26,7 +26,7 @@ const MainLayout = ({ children, isTradeModalVisible }) => {
 
     const modalY = modalAnimatedValue.interpolate({
         inputRange: [0, 1],
-        outputRange: [SIZES.height, SIZES.height - 320]
+        outputRange: [SIZES.height, SIZES.height - 260]
     });
 
     return (
