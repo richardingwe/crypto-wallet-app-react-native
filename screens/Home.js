@@ -9,8 +9,8 @@ import { getHoldings, getCoinMarket } from "../stores/market/marketActions";
 import { useFocusEffect } from "@react-navigation/native";
 
 import MainLayout from "./MainLayout";
-import { COLORS, dummyData, SIZES } from "../constants";
-import { BalanceInfo } from "../components";
+import { COLORS, dummyData, icons, SIZES } from "../constants";
+import { BalanceInfo, IconTextButton } from "../components";
 
 const Home = ({ getHoldings, getCoinMarket, myHoldings, coins }) => {
 
@@ -44,6 +44,33 @@ const Home = ({ getHoldings, getCoinMarket, myHoldings, coins }) => {
                 />
 
                 {/* Buttons */}
+                <View style={{
+                    flexDirection: 'row',
+                    marginTop: 30,
+                    marginBottom: -15,
+                    paddingHorizontal: SIZES.radius
+                }}>
+                    <IconTextButton
+                        label='Transfer'
+                        icon={icons.send}
+                        containerStyle={{
+                            flex: 1,
+                            Height: 40,
+                            marginRight: SIZES.radius
+                        }}
+                        onPress={() => console.log('Transfer')}
+                    />
+
+                    <IconTextButton
+                        label='Withdraw'
+                        icon={icons.withdraw}
+                        containerStyle={{
+                            flex: 1,
+                            Height: 40,
+                        }}
+                        onPress={() => console.log('Withdraw')}
+                    />
+                </View>
             </View>
         );
     }
