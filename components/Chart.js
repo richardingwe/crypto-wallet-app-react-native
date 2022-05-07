@@ -66,6 +66,17 @@ const Chart = ({ containerStyle, chartPrices }) => {
 
             let higherMidValue = (maxValue + midValue) / 2;
             let lowerMidValue = (minValue + midValue) / 2;
+
+            let roundingPoint = 2;
+
+            return [
+                formatNumber(maxValue, roundingPoint),
+                formatNumber(higherMidValue, roundingPoint),
+                formatNumber(lowerMidValue, roundingPoint),
+                formatNumber(minValue, roundingPoint),
+            ];
+        } else {
+            return [];
         }
     };
 
@@ -81,7 +92,17 @@ const Chart = ({ containerStyle, chartPrices }) => {
                 bottom: 0,
                 justifyContent: 'space-between'
             }}>
-                {/* getYAxisLabelValues */}
+                {
+                    getYAxisLabelValues().map((item, index) => (
+                        <Text
+                            key={index}
+                            style={{
+                                color: COLORS.lightGray3,
+                                ...FONTS.body4
+                            }}
+                        >{item}</Text>
+                    ))
+                }
             </View>
 
 
