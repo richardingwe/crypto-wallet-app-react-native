@@ -10,7 +10,7 @@ import { useFocusEffect } from "@react-navigation/native";
 
 import MainLayout from "./MainLayout";
 import { COLORS, dummyData, icons, SIZES } from "../constants";
-import { BalanceInfo, IconTextButton } from "../components";
+import { BalanceInfo, Chart, IconTextButton } from "../components";
 
 const Home = ({ getHoldings, getCoinMarket, myHoldings, coins }) => {
 
@@ -83,7 +83,14 @@ const Home = ({ getHoldings, getCoinMarket, myHoldings, coins }) => {
             }}>
                 {/* Header - Wallet Info */}
                 {renderWalletInfoSection()}
+
                 {/* Chart */}
+                <Chart
+                    containerStyle={{
+                        marginTop: SIZES.padding * 2
+                    }}
+                    chartPrices={coins[0]?.sparkline_in_7d?.price}
+                />
 
                 {/* Top Cryptocurrency */}
             </View>
