@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
     View, Text, FlatList, TouchableOpacity, Image
 } from 'react-native';
@@ -12,6 +12,7 @@ import { COLORS, dummyData, FONTS, icons, SIZES } from "../constants";
 import { BalanceInfo, Chart, IconTextButton } from "../components";
 
 const Home = ({ getHoldings, getCoinMarket, myHoldings, coins }) => {
+    const [selectedCoin, setSelectedCoin] = useState(null);
 
     useFocusEffect(
         useCallback(() => {
@@ -88,7 +89,7 @@ const Home = ({ getHoldings, getCoinMarket, myHoldings, coins }) => {
                     containerStyle={{
                         marginTop: SIZES.padding * 2
                     }}
-                    chartPrices={coins[0]?.sparkline_in_7d?.price}
+                    chartPrices={selectedCoin ? selectedCoin.sparkline_in_7d?.price : coins[0]?.sparkline_in_7d?.price}
                 />
 
                 {/* Top Cryptocurrency */}
@@ -123,6 +124,7 @@ const Home = ({ getHoldings, getCoinMarket, myHoldings, coins }) => {
                                     alignItems: 'center',
                                     justifyContent: 'center'
                                 }}
+                                onPress={() => setSelectedCoin(item)}
                             >
                                 {/* logo */}
                                 <View style={{
