@@ -9,11 +9,15 @@ export const holdings = [
     },
     {
         id: "dogecoin",
-        qty: 884888
+        qty: 4888
     },
     {
         id: "wakanda-inu",
-        qty: 4650397332
+        qty: 465097332
+    },
+    {
+        id: "solana",
+        qty: 6332
     },
 ];
 
