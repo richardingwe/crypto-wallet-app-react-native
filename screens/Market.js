@@ -8,6 +8,7 @@ import {
     Image
 } from 'react-native';
 import { connect } from "react-redux";
+import { HeaderBar } from "../components";
 import { COLORS } from "../constants";
 import { getCoinMarket } from "../stores/market/marketActions";
 import MainLayout from "./MainLayout";
@@ -25,6 +26,7 @@ const Market = ({ getCoinMarket, coins }) => {
                 backgroundColor: COLORS.black
             }}>
                 {/* Header */}
+                <HeaderBar title='Market' />
 
                 {/* Tab bar */}
 
