@@ -10,7 +10,7 @@ import {
 import { LineChart } from "react-native-chart-kit";
 import { connect } from "react-redux";
 import { HeaderBar, TextButton } from "../components";
-import { COLORS, constants, FONTS, SIZES } from "../constants";
+import { COLORS, constants, FONTS, icons, SIZES } from "../constants";
 import { getCoinMarket } from "../stores/market/marketActions";
 import MainLayout from "./MainLayout";
 
@@ -194,6 +194,46 @@ const Market = ({ getCoinMarket, coins }) => {
                                             </View>
 
                                             {/* figures section */}
+                                            <View style={{
+                                                flex: 1,
+                                                alignItems: 'flex-end',
+                                                justifyContent: 'center'
+                                            }}>
+                                                <Text style={{
+                                                    color: COLORS.white,
+                                                    ...FONTS.h4
+                                                }}
+                                                >
+                                                    $ {item.current_price}
+                                                </Text>
+
+                                                <View style={{
+                                                    flexDirection: 'row',
+                                                    justifyContent: 'flex-end',
+                                                    alignItems: 'center'
+                                                }}>
+                                                    {
+                                                        item.price_change_percentage_7d_in_currency != 0
+                                                        && <Image
+                                                            source={icons.upArrow}
+                                                            style={{
+                                                                height: 10,
+                                                                width: 10,
+                                                                tintColor: priceColor,
+                                                                transform: (item.price_change_percentage_7d_in_currency > 0) ? [{ rotate: '45deg' }] : [{ rotate: '125deg' }],
+                                                            }}
+                                                        />
+                                                    }
+
+                                                    <Text style={{
+                                                        marginLeft: 5,
+                                                        color: priceColor,
+                                                        ...FONTS.body5
+                                                    }}>
+                                                        {item.price_change_percentage_7d_in_currency.toFixed(2)}%
+                                                    </Text>
+                                                </View>
+                                            </View>
                                         </View>
                                     );
                                 }}
