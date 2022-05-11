@@ -1,4 +1,4 @@
-import React, { createRef, useEffect, useRef } from 'react';
+import React, { createRef, useEffect, useRef, useState } from 'react';
 import {
     View,
     Text,
@@ -16,14 +16,71 @@ import MainLayout from "./MainLayout";
 
 const marketTabs = constants.marketTabs.map((marketTab) => ({
     ...marketTab,
-    ref: createRef
+    ref: createRef()
 }));
 
-const Tabs = () => {
+const TabIndicator = ({ scrollX, measureLayout }) => {
+
+    const inputRange = marketTabs.map((_, i) => i * SIZES.width);
+
+    const translateX = scrollX.interpolate({
+        inputRange,
+        outputRange: measureLayout.map(measure => measure.x)
+    });
+
     return (
-        <View style={{
-            flexDirection: 'row'
+        <Animated.View style={{
+            position: 'absolute',
+            left: 0,
+            height: '100%',
+            width: (SIZES.width - (SIZES.radius * 2)) / 2,
+            borderRadius: SIZES.radius,
+            backgroundColor: COLORS.lightGray,
+            transform: [{
+                translateX
+            }]
         }}>
+
+        </Animated.View>
+    );
+};
+
+const Tabs = ({ scrollX }) => {
+
+    const [measureLayout, setMeasureLayout] = useState([]);
+
+    const containerRef = useRef();
+
+    useEffect(() => {
+        let ml = [];
+
+        marketTabs.forEach(marketTab => {
+            marketTab?.ref?.current?.measureLayout(
+                containerRef.current,
+                (x, y, width, height) => {
+                    ml.push({
+                        x, y, width, height
+                    });
+
+                    if (ml.length === marketTabs.length) {
+                        setMeasureLayout(ml);
+                    }
+                }
+            );
+        });
+    }, [containerRef.current]);
+
+    return (
+        <View
+            ref={containerRef}
+            style={{
+                flexDirection: 'row'
+            }}>
+
+            {/* tab Indicator */}
+            {
+                measureLayout.length > 0 && <TabIndicator scrollX={scrollX} measureLayout={measureLayout} />
+            }
 
             {/* Tabs */}
             {marketTabs.map((item, index) => {
@@ -69,7 +126,9 @@ const Market = ({ getCoinMarket, coins }) => {
             borderRadius: SIZES.radius,
             backgroundColor: COLORS.gray
         }}>
-            <Tabs />
+            <Tabs
+                scrollX={scrollX}
+            />
         </View>
     );
 
