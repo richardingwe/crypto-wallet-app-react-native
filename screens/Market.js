@@ -1,4 +1,4 @@
-import React, { createRef, useEffect, useRef, useState } from 'react';
+import React, { createRef, useCallback, useEffect, useRef, useState } from 'react';
 import {
     View,
     Text,
@@ -45,7 +45,7 @@ const TabIndicator = ({ scrollX, measureLayout }) => {
     );
 };
 
-const Tabs = ({ scrollX }) => {
+const Tabs = ({ scrollX, onMarketTabPress }) => {
 
     const [measureLayout, setMeasureLayout] = useState([]);
 
@@ -88,7 +88,7 @@ const Tabs = ({ scrollX }) => {
                     <TouchableOpacity
                         key={`MarketTab-${index}`}
                         style={{ flex: 1 }}
-                    // onPress
+                        onPress={() => onMarketTabPress(index)}
                     >
                         <View
                             ref={item.ref}
@@ -118,6 +118,13 @@ const Market = ({ getCoinMarket, coins }) => {
     }, []);
 
     const scrollX = useRef(new Animated.Value(0)).current;
+    const marketTabScrollViewRef = useRef();
+
+    const onMarketTabPress = useCallback(marketTabIndex => {
+        marketTabScrollViewRef?.current?.scrollToOffset({
+            offset: marketTabIndex * SIZES.width
+        });
+    });
 
     const renderTabBar = () => (
         <View style={{
@@ -128,6 +135,7 @@ const Market = ({ getCoinMarket, coins }) => {
         }}>
             <Tabs
                 scrollX={scrollX}
+                onMarketTabPress={onMarketTabPress}
             />
         </View>
     );
@@ -159,6 +167,7 @@ const Market = ({ getCoinMarket, coins }) => {
     const renderList = () => {
         return (
             <Animated.FlatList
+                ref={marketTabScrollViewRef}
                 data={marketTabs}
                 contentContainerStyle={{
                     marginTop: SIZES.padding
